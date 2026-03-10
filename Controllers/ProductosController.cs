@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PrimerCrudWebAPI.Data;
+using PrimerCrudWebAPI.DTOs.Productos;
 using PrimerCrudWebAPI.Migrations;
 using PrimerCrudWebAPI.Models;
+using PrimerCrudWebAPI.Services.Interfaces;
 
 namespace PrimerCrudWebAPI.Controllers
 {
@@ -12,75 +14,76 @@ namespace PrimerCrudWebAPI.Controllers
     public class ProductosController : ControllerBase
     {
 
-        private readonly DBContext _context;
+        //private readonly DBContext _context;
+        private readonly IProductoService _service; //EL CONTROLER AHORA DEPENDE DEL SERVICIO, NO DE LA BASE DE DATOS DIRECTAMENTE
 
-        public ProductosController(DBContext context)
+        public ProductosController(IProductoService service) //INYECCION DE DEPENDENCIAS DEL SERVICIO EN EL CONTROLADOR
         {
-            _context = context;
-        }
-
-        [HttpPost] // CREAR PRODUCTO
-        public async Task<IActionResult> CrearProducto(Producto producto)
-        {
-            await _context.Productos.AddAsync(producto); //aggregar objetos a la bse de datos
-            await _context.SaveChangesAsync(); //guardar los cambios en la base de datos
-
-           // return Ok();
-            return CreatedAtAction(nameof(ObtenerProducto), new { id = producto.Id }, producto);
+            _service = service;
         }
 
         [HttpGet] //OBTENER TODOS LOS PRODUCTOS
-        public async Task<ActionResult<IEnumerable<Producto>>> ObtenerProductos()
+        public async Task<IActionResult> ObtenerProductos()
         {
-            //tarigame todos los prod de db y los pone en lista en la vairble productos
-            var productos = await _context.Productos.ToListAsync();
+            var productos = await _service.ObtenerProductos(); //EL CONTROLADOR LLAMA AL SERVICIO PARA OBTENER LOS PRODUCTOS,
+                                                               //EL SERVICIO SE ENCARGA DE LA LOGICA DE NEGOCIO Y DE LA INTERACCION CON LA BASE DE DATOS
             return Ok(productos);
         }
 
+
         [HttpGet("{id}")] //OBTENER UN PRODUCTO POR ID
-        public async Task<IActionResult>ObtenerProducto(int id)
+        public async Task<IActionResult> ObtenerProducto(int id)
         {
-            Producto producto = await _context.Productos.FindAsync(id);
-
-            if(producto == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(producto);
-        }
-
-        [HttpPut("{id}")] //EDITAR UN PRODUCTO POR ID
-        public async Task<IActionResult>EditarProducto(int id, Producto producto)
-        {
-            var productoExistente = await _context.Productos.FindAsync(id);
-
-            if (productoExistente == null)
-                return NotFound();
-
-            productoExistente.Nombre = producto.Nombre;
-            productoExistente.Descripcion = producto.Descripcion;
-            productoExistente.Precio = producto.Precio;
-
-            await _context.SaveChangesAsync();
-
-            return Ok();
-
-        }
-
-
-        [HttpDelete("{id}")] //ELIMINAR UN PRODUCTO POR ID
-        public async Task<IActionResult>EliminarProducto(int id)
-        {
-            var producto = await _context.Productos.FindAsync(id);
+            var producto = await _service.ObtenerProducto(id);
 
             if (producto == null)
                 return NotFound();
 
-            _context.Productos.Remove(producto);
+            return Ok(producto);
+        }
 
-            await _context.SaveChangesAsync();
-            return Ok();
+
+        [HttpPost] //CREAR UN NUEVO PRODUCTO
+        public async Task<IActionResult> CrearProducto(ProductoCreateDto dto)
+        {
+            var producto = await _service.CrearProducto(dto);
+
+            return CreatedAtAction(nameof(ObtenerProducto), new { id = producto.Id }, producto); //DEVUELVE UN 201 CREATED CON LA RUTA PARA OBTENER EL PRODUCTO RECIEN CREADO
+        }
+
+
+
+        [HttpPut("{id}")] //EDITAR UN PRODUCTO POR ID
+        public async Task<IActionResult> EditarProducto(int id, ProductoCreateDto dto)
+        {
+            var actualizado = await _service.EditarProducto(id, dto);
+
+            if (!actualizado)
+                return NotFound();
+
+            return NoContent();
+        }
+
+
+        [HttpDelete("{id}")] //ELIMINAR UN PRODUCTO POR ID
+        public async Task<IActionResult> EliminarProducto(int id)
+        {
+            var eliminado = await _service.EliminarProducto(id);
+
+            if (!eliminado)
+                return NotFound();
+
+            return NoContent();
+        }
+
+
+        [HttpPatch("{id}")] //ACTUALIZAR UN PRODUCTO POR ID
+        public async Task<IActionResult> ActualizarProducto(int id, ProductoUpdateDto dto)
+        {
+            var actualizado = await _service.ActualizarProducto(id, dto);
+            if (!actualizado)
+                return NotFound();
+            return NoContent();
         }
     }
 }

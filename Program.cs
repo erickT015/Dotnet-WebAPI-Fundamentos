@@ -1,5 +1,8 @@
 using PrimerCrudWebAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using PrimerCrudWebAPI.Services;
+using PrimerCrudWebAPI.Services.Interfaces;
+using AutoMapper;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +18,9 @@ builder.Services.AddDbContext<DBContext>( o =>
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 //builder.Services.AddOpenApi();
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddScoped<IProductoService, ProductoService>();
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

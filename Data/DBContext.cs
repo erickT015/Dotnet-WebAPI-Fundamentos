@@ -19,7 +19,7 @@ namespace PrimerCrudWebAPI.Data
             modelBuilder.Entity<Producto>().HasIndex(p => p.Nombre).IsUnique();
 
 
-            
+            //cada nombre de categroia debe ser unico
             modelBuilder.Entity<Categoria>().HasIndex(c => c.Nombre).IsUnique();
         }
     }

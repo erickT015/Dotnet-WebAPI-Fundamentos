@@ -5,12 +5,13 @@ namespace PrimerCrudWebAPI.DTOs.Productos
 {
     public class ProductoCreateDto
     {
+        [Required(ErrorMessage = "El nombre es obligatorio.")]
         [MaxLength(50, ErrorMessage = "El nombre no puede tener más de 50 caracteres.")]
         public string Nombre { get; set; } = null!;
 
         [DataType(DataType.MultilineText)]
         [MaxLength(500, ErrorMessage = "La descripción no puede tener más de 500 caracteres.")]
-        public string? Descripcion { get; set; }
+        public string Descripcion { get; set; }
 
 
         [Required(ErrorMessage = "El precio es obligatorio.")]
@@ -20,6 +21,6 @@ namespace PrimerCrudWebAPI.DTOs.Productos
 
 
         [Required(ErrorMessage = "La categoría es obligatoria.")]
-        public int CategoriaId { get; set; }
+        public int? CategoriaId { get; set; }
     }
 }
