@@ -35,6 +35,16 @@ El objetivo de este proyecto no es construir un sistema complejo, sino *entender
 
 - Uso de *DTOs* para separar los modelos de la API
 
+- Separación de responsabilidades usando **Controllers y Services**
+
+- Implementación de **búsqueda, filtros y ordenamiento** en endpoints
+
+- Implementación de **paginación de resultados**
+
+- Uso de **PATCH** para actualizaciones parciales
+
+- Manejo global de errores con **middleware de excepciones**
+
 - Validación de datos con *DataAnnotations*
 
 - Uso de *Swagger* para documentar y probar endpoints
@@ -42,24 +52,78 @@ El objetivo de este proyecto no es construir un sistema complejo, sino *entender
 
 ---
 
-
+<details>
+<summary># Estructura del proyecto </summary>
 ## Estructura del proyecto
 
 ```
 
 Controllers/
-
+Services/
+Services/Interfaces/
 Models/
-
 DTOs/
-
 Data/
-
+Mappings/
+Middlewares/
 Migrations/
+
+</details>
 
 ```
 
+<details>
+<summary>Ver endpoints principales</summary>
 
+### Categorías
+
+GET /api/Categorias  
+Obtiene todas las categorías
+
+GET /api/Categorias/{id}  
+Obtiene una categoría por id
+
+POST /api/Categorias  
+Crea una nueva categoría
+
+PUT /api/Categorias/{id}  
+Actualiza una categoría
+
+DELETE /api/Categorias/{id}  
+Elimina una categoría
+
+
+### Productos
+
+GET /api/Productos  
+Obtiene todos los productos
+
+GET /api/Productos/{id}  
+Obtiene un producto por id
+
+POST /api/Productos  
+Crea un producto
+
+PUT /api/Productos/{id}  
+Actualiza un producto completo
+
+PATCH /api/Productos/{id}  
+Actualiza parcialmente un producto
+
+
+### Consultas
+
+GET /api/Productos/search?query=texto  
+
+GET /api/Productos/filter?categoriaId=1&precioMin=10&precioMax=100  
+
+GET /api/Productos/paged?page=1&pageSize=5  
+
+GET /api/Productos/query  
+
+</details>
+
+```
 
 ## Objetivo de aprendizaje
 
@@ -85,9 +149,9 @@ La idea es construir una base sólida y entender APIs backend modernas antes de 
 
 ## Estado del proyecto
 
+Proyecto educativo enfocado en **practicar los fundamentos de Web APIs con .NET**.
 
-
-Proyecto educativo en desarrollo continuo para practicar las bases del desarrollo de APIs con .NET.
+El código fue desarrollado principalmente con fines de aprendizaje, implementando patrones comunes como **DTOs, servicios y separación de capas**.
 
 
 
