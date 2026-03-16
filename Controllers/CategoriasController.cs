@@ -43,7 +43,7 @@ namespace PrimerCrudWebAPI.Controllers
 
 
         [HttpPost] //CREAR UNA NUEVA CATEGORIA
-        public async Task<IActionResult> CrearCategoria(CategoriaCreateDto dto)
+        public async Task<IActionResult> CrearCategoria( [FromBody] CategoriaCreateDto dto)
         {
             var categoria = await _service.CrearCategoria(dto);
             return CreatedAtAction(nameof(ObtenerCategoria), new { id = categoria.Id }, categoria);
@@ -51,7 +51,7 @@ namespace PrimerCrudWebAPI.Controllers
 
 
         [HttpPut("{id}")] //EDITAR UN PRODUCTO POR ID
-        public async Task<IActionResult> EditarCategoria(int id, CategoriaCreateDto dto)
+        public async Task<IActionResult> EditarCategoria(int id, [FromBody] CategoriaCreateDto dto)
         {
             var actualizado = await _service.EditarCategoria(id, dto);
             if (!actualizado)

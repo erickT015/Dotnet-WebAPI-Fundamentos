@@ -9,6 +9,7 @@ namespace PrimerCrudWebAPI.Mappings
         public ProductoProfile()
         {
             CreateMap<ProductoUpdateDto, Producto>()
+                .ForMember(dest => dest.Precio, opt => opt.Ignore())
                 .ForAllMembers(opts =>
                     opts.Condition((src, dest, srcMember) => srcMember != null));
         }

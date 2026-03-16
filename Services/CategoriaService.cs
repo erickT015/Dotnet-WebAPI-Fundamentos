@@ -18,6 +18,7 @@ namespace PrimerCrudWebAPI.Services
         public async Task<IEnumerable<CategoriaResponseDto>> ObtenerCategorias()
         {
             return await _context.Categorias
+                .AsNoTracking()
                 .Select(c => new CategoriaResponseDto
                 {
                     Id = c.Id,
@@ -30,6 +31,7 @@ namespace PrimerCrudWebAPI.Services
         public async Task<CategoriaResponseDto?> ObtenerCategoria(int id)
         {
             var categoria = await _context.Categorias
+                .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
             if (categoria == null)
                 return null;
@@ -52,7 +54,7 @@ namespace PrimerCrudWebAPI.Services
 
             var categoriaExiste = await _context.Categorias.AnyAsync(c => c.Nombre == dto.Nombre);
             if (categoriaExiste)
-                throw new Exception("Ya existe una categoría con ese nombre");
+                throw new InvalidOperationException("Ya existe una categoría con ese nombre");
 
             _context.Categorias.Add(categoria);
             await _context.SaveChangesAsync();
