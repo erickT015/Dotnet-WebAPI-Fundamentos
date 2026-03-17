@@ -24,7 +24,6 @@ El objetivo de este proyecto no es construir un sistema complejo, sino *entender
 
 ## Conceptos practicados
 
-
 - Creación de una *Web API REST*
 - Implementación de *CRUD básico*
 - Uso de *Entity Framework Core*
@@ -44,6 +43,7 @@ El objetivo de este proyecto no es construir un sistema complejo, sino *entender
 <details>
 <summary>📁 Estructura del proyecto</summary>
 
+```
 Controllers/
 Services/
 Services/Interfaces/
@@ -53,6 +53,7 @@ Data/
 Mappings/
 Middlewares/
 Migrations/
+```
 
 </details>
 
