@@ -56,11 +56,12 @@ Migrations/
 
 </details>
 
-```
+---
 
 <details>
 <summary>✅​ Ver endpoints principales</summary>
 
+```
 ### Categorías
 
 GET /api/Categorias  
@@ -105,11 +106,12 @@ GET /api/Productos/filter?categoriaId=1&precioMin=10&precioMax=100
 
 GET /api/Productos/paged?page=1&pageSize=5  
 
-GET /api/Productos/query  
+GET /api/Productos/query 
+```
 
 </details>
 
-```
+---
 
 ## Objetivo de aprendizaje
 
