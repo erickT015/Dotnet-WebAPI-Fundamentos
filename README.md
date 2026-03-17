@@ -22,41 +22,27 @@ El objetivo de este proyecto no es construir un sistema complejo, sino *entender
 ---
 
 
-\## Conceptos practicados
+## Conceptos practicados
 
 
 - Creación de una *Web API REST*
-
 - Implementación de *CRUD básico*
-
 - Uso de *Entity Framework Core*
-
 - *Relación uno a muchos* (Productos → Categorías)
-
 - Uso de *DTOs* para separar los modelos de la API
-
 - Separación de responsabilidades usando **Controllers y Services**
-
 - Implementación de **búsqueda, filtros y ordenamiento** en endpoints
-
 - Implementación de **paginación de resultados**
-
 - Uso de **PATCH** para actualizaciones parciales
-
 - Manejo global de errores con **middleware de excepciones**
-
 - Validación de datos con *DataAnnotations*
-
 - Uso de *Swagger* para documentar y probar endpoints
 
 
 ---
 
 <details>
-<summary># Estructura del proyecto </summary>
-## Estructura del proyecto
-
-```
+<summary>📁 Estructura del proyecto</summary>
 
 Controllers/
 Services/
@@ -73,7 +59,7 @@ Migrations/
 ```
 
 <details>
-<summary>Ver endpoints principales</summary>
+<summary>✅​ Ver endpoints principales</summary>
 
 ### Categorías
 
@@ -130,21 +116,12 @@ GET /api/Productos/query
 
 Este proyecto forma parte de una progresión personal:
 
-
-```
-
 MVC 5 → ASP.NET Core MVC → ASP.NET Core Web API → React + Web API
-
-```
-
-
 
 La idea es construir una base sólida y entender APIs backend modernas antes de integrarlas con un frontend moderno como es React.
 
 
-
 ---
-
 
 
 ## Estado del proyecto
